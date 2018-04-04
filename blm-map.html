@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' /> <!-- What character alphabet the computer can expect to read. -->
+    <title>Marker Map</title> <!-- This will appear as the name on the page tab. -->
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <!-- This links to the font used in the pop-up markers -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+    <!-- These links load Mapbox GL JS to this document. -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+
+    <!-- This is in-HTML line scripting of CSS, or cascade style sheets. These sheets can be written inside of HTML like this between <script> tags, or they can be linked outside of HTML documents using <script src='style.css'></script>. Everything between this <script> tag is CSS. --> 
+    <style>
+        /* This styles everything in the body tags. */
+        body {
+            /* No spacing of the body class, so the map will occupy the entire web page. */
+            margin: 0;
+            padding: 0;
+        }
+        /* This styles the map class. */
+        #map {
+            position: absolute; /* Positioned relative to its first positioned (not static) ancestor element. */
+            /* No spacing, so the map will take up the entire page. */
+            top: 0;
+            bottom: 0;
+            width: 100%;
+          }
+        /* This styles the marker id. */
+        .marker {
+            background-image: url('red.png'); /* Path where to find the marker image. */
+            background-size: cover; /* Resizes the background image to cover the entire container. */
+            /* width, height & radius of the marker */
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            cursor: pointer; /* When hovering over the link, the cursor will turn into a pointer to indicate functionality */
+          }
+        /* This refers to the pop-up's properties. */
+        .mapboxgl-popup {
+            max-width: 200px; /* This gives the width of the pop-up in pixels. */
+          }
+        /* This modifies the font within the pop-up. It centers and styles the font face respectfully. */
+        .mapboxgl-popup-content {
+            text-align: center;
+            font-family: 'Open Sans', sans-serif;
+          }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- Creates a div (think like a physical bin) that can be referenced with the word "map" -->
+    <div id='map'></div>
+
+    <!-- Initiates JavaScript code. Everything between this <script> tag is JavaScript. -->
+    <script>
+        /* Replace with your Mapbox Access Token */
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWFkaXpoZW4iLCJhIjoiY2lzbTViZ2ozMDAyejJ5bzFxaXB0MXN2eCJ9.YVS0Rlj7IjNHireL_ysr6w';
+        /* This creates a new Map called "map" */
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/madizhen/cjfezavwj0i4e2so2tfy0z9iw', /* This style can be replaced as you see fit. To access your styles' keys, go to Studio > Styles > find the map style you want, hit Menu on the right of it > copy the Style URL at the bottom of the pop-up menu. */
+            center: [-98.578283, 39.829289], /* When the new lap is initiated, these are the [long, lat] coordinates that it will be at. */
+            zoom: 3 /* When the new map is initiated, this is is the zoom level that it will be out. */
+        });
+        /* This creates an inline geojson. Think if it like an address book. The 'FeatureCollection' tells you there
+         * are attributes. Then each {contact} tells you its type, it's address or 'geometry' and its properties or
+         * letter contents. */
+
+        var geojson = {
+              type: 'FeatureCollection',
+              features: [{
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-81.32965, 28.79295]
+                },
+                properties: {
+                  title: 'Trayvon Martin',
+                  description: 'red'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-81.550333, 30.219288]
+                },
+                properties: {
+                  title: 'Jordan Davis',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-83.255449, 42.340243]
+                },
+                properties: {
+                  title: 'Renisha McBride',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-74.07674, 40.63716]
+                },
+                properties: {
+                  title: 'Eric Garner',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-84.053096, 39.773212]
+                },
+                properties: {
+                  title: 'John Crawford',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-90.27387, 38.73847]
+                },
+                properties: {
+                  title: 'Michael Brown',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-87.723441, 41.818234]
+                },
+                properties: {
+                  title: 'Laquan McDonald',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-81.752365, 41.479083]
+                },
+                properties: {
+                  title: 'Tamir Rice',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-76.627128, 39.290866]
+                },
+                properties: {
+                  title: 'Freddie Gray',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-93.3018582, 44.9914729]
+                },
+                properties: {
+                  title: 'Jamar Clark',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-91.139444, 30.468056]
+                },
+                properties: {
+                  title: 'Anton Sterling',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-73.942024, 40.693394]
+                },
+                properties: {
+                  title: 'Akai Gurley',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-90.335561, 38.763158]
+                },
+                properties: {
+                  title: 'Antonio Martin',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-91.137808, 30.468733]
+                },
+                properties: {
+                  title: 'Antonio Martin',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-93.1711, 44.99165]
+                },
+                properties: {
+                  title: 'Philando Castile',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-96.07535, 30.10239]
+                },
+                properties: {
+                  title: 'Sandra Bland',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-118.202136, 33.971886] 
+                },
+                properties: {
+                  title: 'Ezell Ford',
+                  description: 'August 11, 2014'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-87.695780, 41.871133]
+                },
+                properties: {
+                  title: 'Roshad McIntosh',
+                  description: 'San Francisco, California'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-89.401615, 43.072935]
+                },
+                properties: {
+                  title: 'Tony Terrell Robinson Jr.',
+                  description: 'March 6, 2015'
+                }
+              },
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [-75.229410, 39.430015]
+                },
+                properties: {
+                  title: 'Jerame Reid',
+                  description: 'December 30, 2014'
+                }
+              }
+              ]
+            };
+
+        var geojsonGreen = {
+          type: 'FeatureCollection',
+          features: [{
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [43.043352, -87.908998]
+            },
+            properties: {
+              title: 'Dontre Hamilton',
+              description: 'April 30, 2014'
+            }
+          },
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [-122.414, 37.776]
+            },
+            properties: {
+              title: 'Mapbox',
+              description: 'San Francisco, California'
+            }
+          }
+          ]
+        };
+        /* This adds the markers and the pop-up text boxes (appears when the markers are clicked upon) to the map.
+         *
+         * This line can be better understood if you read in a funky and almost backwards way: for each marker apply 
+         * this function (we'll get to 'this function' in a second). The marker can be found at a location indicated
+         * in geojson's feature.
+         *
+         * 'This function' is latter indicated inside of the {} braces. The specifics of what each function does will 
+         * be explained therein. */
+        geojson.features.forEach(function(marker) {
+            /* Creates an HTML element for each feature, meaning it writes <div id='marker'></div>. This can be
+             * referenced and adjusted as needed. */
+            var el = document.createElement('div');
+            el.className = 'marker';
+            /* Make a marker for each feature and add to the map. */
+            new mapboxgl.Marker(el) 
+                .setLngLat(marker.geometry.coordinates) /* Gathers the coordinates from the geojson to use as [lat, long] for where the marker should pop-up. */
+                .addTo(map); /* Adds the marker to the map. */
+            new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates) /* Look familiar? Check line 123 if not. */
+                .setPopup(new mapboxgl.Popup({ offset: 25 }) /* Adds pop-ups */
+                .setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.description + '</p>')) /* This is inline HTML, meaning that HTML tags are being applied to the text to adjust their formatting.  <h3> makes a small header from the information found in the given path: title > properties > marker > geojson. <p> does the same but location the description. */
+                .addTo(map); /* Look familiar? Check line 124 if not. */
+        });
+
+        geojsonGreen.features.forEach(function(marker) {
+            /* Creates an HTML element for each feature, meaning it writes <div id='marker'></div>. This can be
+             * referenced and adjusted as needed. */
+            var el = document.createElement('div');
+            el.className = 'marker';
+            /* Make a marker for each feature and add to the map. */
+            new mapboxgl.Marker(el) 
+                .setLngLat(marker.geometry.coordinates) /* Gathers the coordinates from the geojson to use as [lat, long] for where the marker should pop-up. */
+                .addTo(map); /* Adds the marker to the map. */
+            new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates) /* Look familiar? Check line 123 if not. */
+                .setPopup(new mapboxgl.Popup({ offset: 25 }) /* Adds pop-ups */
+                .setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.description + '</p>')) /* This is inline HTML, meaning that HTML tags are being applied to the text to adjust their formatting.  <h3> makes a small header from the information found in the given path: title > properties > marker > geojson. <p> does the same but location the description. */
+                .addTo(map); /* Look familiar? Check line 124 if not. */
+        });
+    </script>
+
+</body>
+</html
