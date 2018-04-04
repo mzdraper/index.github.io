@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>BlackLandscapesMatter</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { 
+            margin:0; 
+            padding:0; 
+        }
+
+        #map { 
+            position:absolute; 
+            top:0; 
+            bottom:0; 
+            width:100%; 
+        }
+
+        #console {
+            position: absolute;
+            margin: 10px;
+            height: 475px;
+            width: 245px;
+            background-color: white;
+            opacity: 0.8;
+            padding: 10px 10px;
+        }
+        .session {
+            margin-bottom: 20px;
+        }
+
+        .row {
+            height: 12px;
+            width: 100%;
+        }
+
+        .colors {
+            background: linear-gradient(to right, #2DC4B2, #3BB3C3, #669EC4, #8B88B6, #A2719B, #AA5E79);
+            margin-bottom: 5px;
+        }
+
+        .label {
+            width: 15%;
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+  <div id='console'>
+    <h4>BlackLandscapesMatter</h4>
+    <p>Data: <a href='https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95'>Motor vehicle collision injuries and death</a> in NYC, Jan 2016</p>
+    <div class='session'>
+      <h2>Time: <label id='active-hour'>12PM</label></h2>
+      <input id='slider' class='row' type='range' min='0' max='23' step='1' value='12' />
+    </div>
+    <div class='session'>
+      <h2>Day of the week</h2>
+      <div class='row' id='filters'>
+        <input id='all' type='radio' name='toggle' value='all' checked='checked'>
+        <label for='all'>All</label>
+        <br>
+        <input id='weekday' type='radio' name='toggle' value='weekday'>
+        <label for='weekday'>Murders</label>
+        <br>
+        <input id='weekend' type='radio' name='toggle' value='weekend'>
+        <label for='weekend'>Protests</label>
+      </div>
+    </div>
+  </div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibWFkaXpoZW4iLCJhIjoiY2lzbTViZ2ozMDAyejJ5bzFxaXB0MXN2eCJ9.YVS0Rlj7IjNHireL_ysr6w';
+
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/madizhen/cjfezavwj0i4e2so2tfy0z9iw',
+    center: [-98.578283, 39.829289],
+    zoom: 3.5
+});
+
+
+
+</script>
+
+</body>
+</html>
