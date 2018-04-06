@@ -2,44 +2,45 @@
 <html>
 <head>
     <meta charset='utf-8' /> <!-- What character alphabet the computer can expect to read. -->
-    <title>Marker Map</title> <!-- This will appear as the name on the page tab. -->
+    <title>BLM</title> <!-- This will appear as the name on the page tab. -->
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-
-    <!-- This links to the font used in the pop-up markers -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
     <!-- These links load Mapbox GL JS to this document. -->
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     <!-- This is in-HTML line scripting of CSS, or cascade style sheets. These sheets can be written inside of HTML like this between <script> tags, or they can be linked outside of HTML documents using <script src='style.css'></script>. Everything between this <script> tag is CSS. --> 
     <style>
-        /* This styles everything in the body tags. */
+        /* This styles everything in the <body> tags. */
         body {
             /* No spacing of the body class, so the map will occupy the entire web page. */
             margin: 0;
             padding: 0;
         }
 
+        /* This styles the console class. */
         #console {
-            position: absolute;
-            margin: 10px;
-            height: 475px;
-            width: 245px;
-            background-color: white;
-            opacity: 0.8;
-            padding: 10px 10px;
+            position: absolute; /* Positioned relative to its first positioned (not static) ancestor element. */
+            margin: 10px; /* How many pixels for the margin inside the class. */
+            height: 450px; /* How tall it will be in pixels. */
+            width: 245px; /* How wide it will be in pixels. */
+            background-color: white; /* What color it will be. */
+            opacity: 0.8; /* How opaque the background-color will be. */
+            padding: 10px 10px; /* The space between this class and the edge of the page. */
+            font-family: 'Courier'; /* The text in this class will be Courier. */
+            font-size: 16px; /* The size of the text in this class will be 16 pixels. */
         }
+
         /* This styles the map class. */
         #map {
             position: absolute; /* Positioned relative to its first positioned (not static) ancestor element. */
-            /* No spacing, so the map will take up the entire page. */
+            /* No spacing on the top or bottom, so the map will take up the entire page. */
             top: 0;
             bottom: 0;
             width: 100%;
+
           }
+
         /* This styles the marker id. */
         .marker {
             background-image: url('red.png'); /* Path where to find the marker image. */
@@ -51,26 +52,29 @@
             cursor: pointer; /* When hovering over the link, the cursor will turn into a pointer to indicate functionality */
           }
 
+         /* This styles the markergreen id. */
         .markergreen {
             background-image: url('green.png'); /* Path where to find the marker image. */
             background-size: cover; /* Resizes the background image to cover the entire container. */
-            /* width, height & radius of the marker */
+            /* width, height & radius of the marker. */
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            cursor: pointer; /* When hovering over the link, the cursor will turn into a pointer to indicate functionality */
+            cursor: pointer; /* When hovering over the link, the cursor will turn into a pointer to indicate functionality. */
           }
 
+        /* This styles the markerLarge id. */
         .markerLarge {
             background-image: url('white.png'); /* Path where to find the marker image. */
             background-size: cover; /* Resizes the background image to cover the entire container. */
-            /* width, height & radius of the marker */
+            /* width, height & radius of the marker. */
             width: 70px;
             height: 70px;
             border-radius: 50%;
-            cursor: pointer; /* When hovering over the link, the cursor will turn into a pointer to indicate functionality */
+            cursor: pointer; /* When hovering over the link, the cursor will turn into a pointer to indicate functionality. */
           }
 
+        /* This styles the markerMedium id. */
         .markerMedium {
             background-image: url('white.png'); /* Path where to find the marker image. */
             background-size: cover; /* Resizes the background image to cover the entire container. */
@@ -81,6 +85,7 @@
             cursor: pointer; /* When hovering over the link, the cursor will turn into a pointer to indicate functionality */
           }
 
+        /* This styles the markerSmall id. */
         .markerSmall {
             background-image: url('white2.png'); /* Path where to find the marker image. */
             background-size: cover; /* Resizes the background image to cover the entire container. */
@@ -93,43 +98,35 @@
 
         /* This refers to the pop-up's properties. */
         .mapboxgl-popup {
-            max-width: 150px; /* This gives the width of the pop-up in pixels. */
+            max-width: 150px; /* This gives the maximum width of the pop-up in pixels. */
           }
-        /* This modifies the font within the pop-up. It centers and styles the font face respectfully. */
+        /* This modifies the font within the pop-up. It centers and styles the font face respectively. */
         .mapboxgl-popup-content {
             text-align: center;
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'Courier';
           }
     </style>
 </head>
 
-
+<!-- Remember that everything in the body styling above is applied to what is inside these tags. -->
 <body>
 
     <!-- Creates a div (think like a physical bin) that can be referenced with the word "map" -->
     <div id='map'></div>
-    <div id='console'>
-    <h4>BlackLandscapesMatter</h4>
-    <p>/insert text about map/blm</p>
-    <!-- <div class='session'> -->
-    <!--  <h2>Time: <label id='active-hour'>12PM</label></h2> -->
-    <!-- <input id='slider' class='row' type='range' min='0' max='23' step='1' value='12' /> -->
-    <!-- </div> -->
-    <div class='session'>
-      <h2>Layer</h2>
-      <div class='row' id='filters'>
-        <input id='all' type='radio' name='toggle' value='all' checked='checked'>
-        <label for='all'>All</label>
-        <br>
-        <input id='weekday' type='radio' name='toggle' value='weekday'>
-        <label for='weekday'>Murders</label>
-        <br>
-        <input id='weekend' type='radio' name='toggle' value='weekend'>
-        <label for='weekend'>Protests</label>
-      </div>
-    </div>
-  </div>
 
+    <!-- Creates a div (think like a physical bin) that can be referenced with the word "console" -->
+    <div id='console'>
+      <h3>BlackLandscapesMatter</h3> <!-- <h4> is a Header tag that is smaller than preceding numbers. Makes it bold, but not exceedingly apparent. -->
+
+      <!-- These are paragraph tags, meaning it's a block of text formatted very similar to a paragraph. -->
+      <p>BlackLivesMatter is a movement that campaigns against systematic oppression against African-Americans and educates people on civil liberties. BlackLandscapesMatter is a working atlas to represent events from the movement and add a spatial dimension to increase visibility of African-Americans and African American issues.</p>
+      
+      <p>
+        To add to the project, click here. <br></br>
+        Map by Madison Draper.
+      </p>
+
+    </div>
 
     <!-- Initiates JavaScript code. Everything between this <script> tag is JavaScript. -->
     <script>
@@ -143,9 +140,9 @@
             zoom: 3.5 /* When the new map is initiated, this is is the zoom level that it will be out. */
         });
 
-        /* This creates inline geojson. Think if it like an address book. The 'FeatureCollection' tells you there
-         * are attributes. Then each {contact} tells you its type, it's address or 'geometry' and its properties or
-         * letter contents. */
+        /* This creates a few inline geojson. Think if it like an address book. The 'FeatureCollection' tells you there
+        *  are attributes. Then each {contact} tells you its type, it's address or 'geometry' and its properties or
+        *  letter contents. */
 
          var geojsonLargeProtests = { 
           type: 'FeatureCollection',
@@ -153,7 +150,7 @@
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [-81.32965, 28.79295]
+              coordinates: [-81.32965, 28.79295] // Coordinates are read as [longitude, latitude]
             },
               properties: {}
           },
@@ -1341,7 +1338,7 @@
           ]
          };
 
-         var geojsonGreen = {
+         var convicted = {
           type: 'FeatureCollection',
           features: [{
             type: 'Feature',
@@ -1445,7 +1442,7 @@
         ]
         };
 
-        var geojson = {
+        var notConvicted = {
               type: 'FeatureCollection',
               features: [{
                 type: 'Feature',
@@ -1865,7 +1862,9 @@
          * in geojson's feature.
          *
          * 'This function' is latter indicated inside of the {} braces. The specifics of what each function does will 
-         * be explained therein. */
+         * be explained therein. 
+         *
+         * The order of this was intentional to stack the layers appropiately. */
 
         /* Markers for protests. */
 
@@ -1874,73 +1873,56 @@
              * referenced and adjusted as needed. */
             var el = document.createElement('div');
             el.className = 'markerLarge';
-            /* Make a marker for each feature and add to the map. */
+            /* Makes a marker for each feature and adds it to the map. */
             new mapboxgl.Marker(el) 
                 .setLngLat(markerLarge.geometry.coordinates) /* Gathers the coordinates from the geojson to use as [lat, long] for where the marker should pop-up. */
                 .addTo(map); /* Adds the marker to the map. */
         });
 
         geojsonMediumProtests.features.forEach(function(markerMedium) {
-            /* Creates an HTML element for each feature, meaning it writes <div id='marker'></div>. This can be
-             * referenced and adjusted as needed. */
             var el = document.createElement('div');
             el.className = 'markerMedium';
-            /* Make a marker for each feature and add to the map. */
             new mapboxgl.Marker(el) 
-                .setLngLat(markerMedium.geometry.coordinates) /* Gathers the coordinates from the geojson to use as [lat, long] for where the marker should pop-up. */
-                .addTo(map); /* Adds the marker to the map. */
+                .setLngLat(markerMedium.geometry.coordinates)
+                .addTo(map);
         });
 
         geojsonSmallProtests.features.forEach(function(markerSmall) {
-            /* Creates an HTML element for each feature, meaning it writes <div id='marker'></div>. This can be
-             * referenced and adjusted as needed. */
             var el = document.createElement('div');
             el.className = 'markerSmall';
-            /* Make a marker for each feature and add to the map. */
             new mapboxgl.Marker(el) 
-                .setLngLat(markerSmall.geometry.coordinates) /* Gathers the coordinates from the geojson to use as [lat, long] for where the marker should pop-up. */
-                .addTo(map); /* Adds the marker to the map. */
-
-                /* try to add if statement to change image?
-                  if (zoom <= 5) { $('markerSmall').css('background-image', 'white2.png')};
-                */
-
+                .setLngLat(markerSmall.geometry.coordinates)
+                .addTo(map);
         });
 
         /* Markers for murders. */
 
-        geojsonGreen.features.forEach(function(markergreen) {
-            /* Creates an HTML element for each feature, meaning it writes <div id='marker'></div>. This can be
-             * referenced and adjusted as needed. */
+        convicted.features.forEach(function(markergreen) {
             var el = document.createElement('div');
             el.className = 'markergreen';
-            /* Make a marker for each feature and add to the map. */
             new mapboxgl.Marker(el) 
-                .setLngLat(markergreen.geometry.coordinates) /* Gathers the coordinates from the geojson to use as [lat, long] for where the marker should pop-up. */
-                .addTo(map); /* Adds the marker to the map. */
+                .setLngLat(markergreen.geometry.coordinates)
+                .addTo(map);
             new mapboxgl.Marker(el)
                 .setLngLat(markergreen.geometry.coordinates) /* Look familiar? Check line 123 if not. */
                 .setPopup(new mapboxgl.Popup({ offset: 25 }) /* Adds pop-ups */
                 .setHTML('<h3>' + markergreen.properties.title + '</h3><p>' + markergreen.properties.description + '</p>')) /* This is inline HTML, meaning that HTML tags are being applied to the text to adjust their formatting.  <h3> makes a small header from the information found in the given path: title > properties > marker > geojson. <p> does the same but location the description. */
-                .addTo(map); /* Look familiar? Check line 124 if not. */
+                .addTo(map);
         });
 
-        geojson.features.forEach(function(marker) {
+        notConvicted.features.forEach(function(marker) {
             /* Creates an HTML element for each feature, meaning it writes <div id='marker'></div>. This can be
              * referenced and adjusted as needed. */
-            var el = document.createElement('div');
-            el.className = 'marker';
-            /* Make a marker for each feature and add to the map. */
-            new mapboxgl.Marker(el) 
-                .setLngLat(marker.geometry.coordinates) /* Gathers the coordinates from the geojson to use as [lat, long] for where the marker should pop-up. */
-                .addTo(map); /* Adds the marker to the map. */
+            var el = document.createElement('div'); /* Creates a new <div>, or bin, for the marker to go into. It can be referenced by its variable name: el */
+            el.className = 'marker'; /* This is assigning the <div> class name to be 'marker' */
+            /* Make a marker for each feature and adds it to the map. */
             new mapboxgl.Marker(el)
-                .setLngLat(marker.geometry.coordinates) /* Look familiar? Check line 123 if not. */
-                .setPopup(new mapboxgl.Popup({ offset: 25 }) /* Adds pop-ups */
-                .setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.description + '</p>')) /* This is inline HTML, meaning that HTML tags are being applied to the text to adjust their formatting.  <h3> makes a small header from the information found in the given path: title > properties > marker > geojson. <p> does the same but location the description. */
-                .addTo(map); /* Look familiar? Check line 124 if not. */
+                .setLngLat(marker.geometry.coordinates) /* This assigns the coordiantes to the marker. */
+                .setPopup(new mapboxgl.Popup({ offset: 25 }) /* The offset size determines how far away the marker is from the coordinates. */
+                .setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.description + '</p>'))
+                    /* This is inline HTML, meaning that HTML tags are being applied to the text to adjust their formatting.  <h3> makes a small header from the information found in the given path: title > properties > marker > geojson. <p> does the same but location the description. */
+                .addTo(map); /* Adds the marker to the map. */
         });
-
         
     </script>
 
