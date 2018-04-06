@@ -21,10 +21,10 @@
         /* This styles the console class. */
         #console {
             position: absolute; /* Positioned relative to its first positioned (not static) ancestor element. */
-            margin: 10px; /* How many pixels for the margin inside the class. */
-            height: 450px; /* How tall it will be in pixels. */
+            height: 100%; /* How tall it will be in pixels. */
             width: 245px; /* How wide it will be in pixels. */
-            background-color: white; /* What color it will be. */
+            background-color: #808080; /* What color it will be. */
+            color: white;
             opacity: 0.8; /* How opaque the background-color will be. */
             padding: 10px 10px; /* The space between this class and the edge of the page. */
             font-family: 'Courier'; /* The text in this class will be Courier. */
@@ -105,6 +105,23 @@
             text-align: center;
             font-family: 'Courier';
           }
+
+        .legend-red {
+          width: 20px;
+          height: 20px;
+        }
+
+        .legend-green {
+          width: 20px;
+          height: 20px;
+        }
+
+        th, td {
+          width: 40px;
+          height: 45px;
+          justify-content:center;
+          vertical-align:center;
+        }
     </style>
 </head>
 
@@ -119,10 +136,32 @@
       <h3>BlackLandscapesMatter</h3> <!-- <h4> is a Header tag that is smaller than preceding numbers. Makes it bold, but not exceedingly apparent. -->
 
       <!-- These are paragraph tags, meaning it's a block of text formatted very similar to a paragraph. -->
-      <p>BlackLivesMatter is a movement that campaigns against systematic oppression against African-Americans and educates people on civil liberties. BlackLandscapesMatter is a working atlas to represent events from the movement and add a spatial dimension to increase visibility of African-Americans and African American issues.</p>
-      
+      BlackLivesMatter is a movement that campaigns against systematic oppression against African-Americans and educates people on civil liberties. BlackLandscapesMatter is a working atlas to represent events from the movement and add a spatial dimension to increase visibility of African-Americans and African American issues.
+      <table>
+      <tr height="50">
+        <td><img src="red.png" alt="Unconvicted Murde" style="width:20px;height:20px;text-align: center;"></td>
+        <td>Unconvicted Murder</td>
+      </tr>
+      <tr height="50">
+        <td><img src="green.png" alt="Convicted Murder" style="width:20px;height:20px;text-align: center;"></td>
+        <td>Convicted Murder</td>
+      </tr>
+      <tr height="50">
+        <td><img src="white2.png" alt="1000+ Protesters" style="width:40px;height:40px;text-align: center;"></td>
+        <td>1000+ Protesters</td>
+      </tr>
+      <tr height="50">
+        <td><img src="white2.png" alt="500-999 Protesters" style="width:30px;height:30px;text-align: center;"></td>
+        <td>500-999 Protesters</td>
+      </tr>
+      <tr height="50">
+        <td><img src="white2.png" alt="100-499 Protesters" style="width:20px;height:20px;text-align: center;"></td>
+        <td>100-499 Protesters</td>
+      </tr>
+      </table>
+
       <p>
-        To add to the project, click here. <br></br>
+        To add to the project, click <a href="https://github.com/mzdraper/index.github.io">here</a>. <br></br>
         Map by Madison Draper.
       </p>
 
